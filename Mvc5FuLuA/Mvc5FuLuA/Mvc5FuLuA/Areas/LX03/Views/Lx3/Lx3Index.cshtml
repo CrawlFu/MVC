@@ -1,0 +1,22 @@
+﻿<h2>数组排序练习</h2>
+<label class="h4">请输入多个正、负整数，各数之间用空格分隔：</label>
+<input class="h4" id="text1" type="text" />
+<button class="btn btn-primary">排序</button>
+<p class="h4">
+    排序结果：
+    <label id="result"></label>
+</p>
+<script>
+    $("button").click(function () {
+        var a = $("#text1").val().split(" ");
+        var b = "", c = "";
+        for (var i = 0; i < a.length; i++) {
+            if (parseInt(a[i]) < 0) {
+                b += b.length == 0 ? a[i] : " " + a[i];
+            } else {
+                c += " " + a[i];
+            }
+        }
+        $("#result").text(b + c);
+    });
+</script>

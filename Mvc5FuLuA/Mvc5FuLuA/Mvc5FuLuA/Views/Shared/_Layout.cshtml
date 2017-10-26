@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>
+
+    @Styles.Render("~/Content/themes/base/jqueryui")
+    @Styles.Render("~/Content/css")
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquery-ui")
+    @Scripts.Render("~/bundles/jquery-unobtrusive-ajax")
+    @Scripts.Render("~/bundles/bootstrap")
+</head>
+@{
+    var ajaxOptions = new System.Web.Mvc.Ajax.AjaxOptions
+    {
+        LoadingElementId = "loading",
+        UpdateTargetId = "mainWindow",
+        OnFailure = "OnFailure"
+    };
+}
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("姓名：张三", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a>组号：01，上机位置：01排1号，学号：12345678，性别：男</a></li>
+                </ul>
+                <ul id="loading" class="nav navbar-text navbar-right" style="display: none; color: white;">
+                    <li>（正在加载，请稍等...）</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="leftMenu" style="margin-top:10px">
+                    <h3 class="btn-success">练习1-布局页和主页设计</h3>
+                    <div class="list-group">
+                        @Ajax.ActionLink("主页", "Index", "Home", null, ajaxOptions, new { @class = "list-group-item" })
+                    </div>
+                    <h3 class="btn-success">练习2-模型和基本操作</h3>
+                    <div class="list-group">
+                        @Html.ActionLink("ViewResult", "Index", "Lx2", new { area = "LX02", id = "1" }, new { @class = "list-group-item" })
+                        @Ajax.ActionLink("PartialViewResult", "Index", "Lx2", new { area = "LX02", id = "2" }, ajaxOptions, new { @class = "list-group-item" })
+                        @Ajax.ActionLink("RedirectResult", "Index", "Lx2", new { area = "LX02", id = "3" }, ajaxOptions, new { @class = "list-group-item" })
+                    </div>
+                    <h3 class="btn-success">练习3-数组排序</h3>
+                    <div>
+                        @Ajax.ActionLink("附加条件排序", "Lx3Index", "Lx3", new { area = "LX03" }, ajaxOptions, new { @class = "list-group-item" })
+                    </div>
+                    <h3 class="btn-success">练习4-图片浏览</h3>
+                    <div>
+                        @Ajax.ActionLink("多图片播放", "Lx4Index", "Lx4", new { area = "LX04" }, ajaxOptions, new { @class = "list-group-item" })
+                    </div>
+                    <h3 class="btn-success">练习5-表单交互</h3>
+                    <div>
+                        @Ajax.ActionLink("编辑用户信息", "Lx5Index", "Lx5", new { area = "LX05" }, ajaxOptions, new { @class = "list-group-item" })
+                    </div>
+                    <h3 class="btn-success">练习6-CSS和动画</h3>
+                    <div>
+                        @Ajax.ActionLink("定位控制和动画", "Lx6Index", "Lx6", new { area = "LX06" }, ajaxOptions, new { @class = "list-group-item" })
+                    </div>
+                    <h3 class="btn-success">练习7-数据库操作</h3>
+                    <div>
+                        @Ajax.ActionLink("显示电影信息", "Lx7Index", "Lx7", new { area = "LX07" }, ajaxOptions, new { @class = "list-group-item" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div id="mainWindow" style="border:1px solid blue;margin-top:10px; padding:10px; overflow-y:auto; overflow-x:hidden">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        <footer style="margin-top:10px">
+            <div class="btn-danger text-center">本组成员：张三雨（组长）、张三、李四、王五、赵六</div>
+        </footer>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var menu = $(".leftMenu");
+            menu.accordion({ collapsible: true });
+            $("#mainWindow").css({ minHeight: menu.height() });
+        });
+        function OnFailure(xhr) {
+            $("body").html(xhr.responseText);
+        }
+    </script>
+</body>
+</html>

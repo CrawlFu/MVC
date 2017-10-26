@@ -1,0 +1,56 @@
+﻿<p>
+    <img id="img1" style="width:100%; height:200px" src="~/Areas/LX04/Images/a1.jpg" />
+</p>
+<p>当前图片：<span id="p1"></span></p>
+<p>
+    <label>请输入播放时间间隔：</label>
+    <input id="text1" name="text1" type="number" value="2000"/>
+    <button id="btnBefore" class="btn btn-primary">上一张</button>
+    <button id="btnNext" class="btn btn-primary">下一张</button>
+    <button id="btnAuto" class="btn btn-primary">自动播放</button>
+    <button id="btnStop" class="btn btn-primary">停止自动播放</button>
+</p>
+<script>
+    var images = ["a1.jpg", "a2.jpg", "a3.jpg", "a4.jpg", "a5.jpg", "a6.jpg"];
+    var num = 0;
+    $("#p1").text(images[num])
+    EnableAuto(true);
+    var handle;
+    $("#btnAuto").click(function () {
+        EnableAuto(false);
+        handle = setInterval(autoPlay, parseInt($("#text1").val()));
+    });
+    $("#btnStop").click(function () {
+        clearInterval(handle);
+        EnableAuto(true);
+    });
+    $("#btnBefore").click(function () {
+        num = num == 0 ? 5 : num - 1;
+        ShowImage();
+    });
+    $("#btnNext").click(function () {
+        num = num == 5 ? 0 : num + 1;
+        ShowImage();
+    });
+    function autoPlay() {
+        num++;
+        if (num > 5) num = 0;
+        ShowImage();
+    }
+    function ShowImage() {
+        $("#p1").text(images[num])
+        $("#img1").attr("src", "/Areas/LX04/Images/" + images[num]);
+    }
+    function EnableAuto(enable) {
+        if (enable == false){
+            $("#btnStop").removeAttr("disabled");
+            $("#btnBefore").attr("disabled", "disabled");
+            $("#btnNext").attr("disabled", "disabled");
+        }
+        else {
+            $("#btnStop").attr("disabled", "disabled");
+            $("#btnBefore").removeAttr("disabled");
+            $("#btnNext").removeAttr("disabled");
+        }
+    }
+</script>

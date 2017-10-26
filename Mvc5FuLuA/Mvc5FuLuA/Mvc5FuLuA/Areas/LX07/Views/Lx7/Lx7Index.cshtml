@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Mvc5FuLuA.Areas.LX07.Models.Movie>
+
+<h2>电影信息</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.ID)</th>
+        <th>@Html.DisplayNameFor(model => model.MovieType)</th>
+        <th>@Html.DisplayNameFor(model => model.MovieName)</th>
+        <th>操作</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.ID)</td>
+            <td>@Html.DisplayFor(modelItem => item.MovieType)</td>
+            <td>@Html.DisplayFor(modelItem => item.MovieName)</td>
+            <td>
+                @Html.ActionLink("编辑", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("删除", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+</table>
+
