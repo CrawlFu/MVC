@@ -14,7 +14,7 @@ namespace FenWeiBo.Controllers
         {
             ViewBag.Message = "每天发现新世界";
 
-            Weibo weibo = new Weibo();
+            Weibo weibo = null;
             if (Session["UID"].ToString() == null || Session["UID"].ToString() == "")
             {
                 return View();
@@ -26,6 +26,7 @@ namespace FenWeiBo.Controllers
             //DataSet ds = sqlhelper.Query(sql);
 
             List<Weibo> weibolist = new List<Weibo>();
+            weibo = new Weibo();
             weibo.userid = 1;
             weibo.userid = 1;
             weibo.cont = "sssfasdfasdfasdfasdfad";
