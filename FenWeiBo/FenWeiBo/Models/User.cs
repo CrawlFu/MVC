@@ -7,10 +7,12 @@ namespace FenWeiBo.Models
 {
     public class User
     {
-        public string username { get ;set;}
-        public string password { get; set; }
-        //public string username { get; set; }
-        //public string username { get; set; }
 
+        public int? userid { get; set; }
+        public string  uname { get; set; }
+        public string pwd { get; set; }
+        public int? tel { get; set; }
+        public int? authority { get; set; }
+        public int? stat { get; set; }
     }
 }

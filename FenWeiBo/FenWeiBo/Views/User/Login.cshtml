@@ -1,13 +1,43 @@
-﻿<!DOCTYPE html>
+﻿@model FenWeiBo.Models.User
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-</head>
-<body>
-    <div>
-        @RenderBody()
-    </div>
-</body>
-</html>
+@{
+    ViewBag.Title = "登录";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<section id="loginForm">
+    <h2>使用本地帐户登录。</h2>
+    @using (Html.BeginForm("Login", "User", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>“登录”表单</legend>
+            <ol>
+                <li>
+                    @Html.LabelFor(m => m.userid)
+                    @Html.TextBoxFor(m => m.userid)
+                    @Html.ValidationMessageFor(m => m.userid)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.pwd)
+                    @Html.PasswordFor(m => m.pwd)
+                    @Html.ValidationMessageFor(m => m.pwd)
+                </li>
+            </ol>
+            <input type="submit" value="登录" />
+        </fieldset>
+        <p>
+            @Html.ActionLink("注册", "Register") 如果你没有帐户。
+        </p>
+    }
+</section>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

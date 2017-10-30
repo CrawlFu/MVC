@@ -1,7 +1,7 @@
 ﻿
 @model FenWeiBo.Models.User
 @{
-    ViewBag.Title = "注册";
+        ViewBag.Title = "注册";
 }
 
 <hgroup class="title">
@@ -9,7 +9,7 @@
     <h2>新建帐户。</h2>
 </hgroup>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Register", "User",FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
@@ -18,17 +18,17 @@
         <legend>注册表单</legend>
         <ol>
             <li>
-                @Html.LabelFor(m => m.username)
-                @Html.TextBoxFor(m => m.username)
+                @Html.LabelFor(m =>m.userid)
+                @Html.TextBoxFor(m => m.userid)
             </li>
             <li>
-                @Html.LabelFor(m => m.password)
-                @Html.PasswordFor(m => m.password)
+                @Html.LabelFor(m => m.pwd)
+                @Html.PasswordFor(m => m.pwd)
             </li>
-            @*<li>
-                @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
-            </li>*@
+            <li>
+                @Html.LabelFor(m => m.tel)
+                @Html.PasswordFor(m => m.tel)
+            </li>
         </ol>
         <input type="submit" value="注册" />
     </fieldset>
