@@ -26,8 +26,12 @@
                 @Html.PasswordFor(m => m.pwd)
             </li>
             <li>
+                @Html.LabelFor(m => m.uname)
+                @Html.TextBoxFor(m => m.uname)
+            </li>
+            <li>
                 @Html.LabelFor(m => m.tel)
-                @Html.PasswordFor(m => m.tel)
+                @Html.TextBoxFor(m => m.tel)
             </li>
         </ol>
         <input type="submit" value="注册" />

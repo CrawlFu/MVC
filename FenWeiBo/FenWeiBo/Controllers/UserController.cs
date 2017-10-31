@@ -21,25 +21,49 @@ namespace FenWeiBo.Controllers
         public ActionResult Register(User user)
         {
             SqlHelper sqlhelper = new SqlHelper();
-            string sql = "insert into Userr values('"+user.userid+"','"+user.uname+"','"+user.pwd+"',null,null,null) ";
-
+            string sql = "insert into Userr values(" + user.userid + ",'" + user.uname + "','" + user.pwd + "'," + user.tel + ",1,1,0)";
             int i = sqlhelper.ExecuteSql(sql);
             Session["Name"] = user.uname;
             Session["Uid"] = user.userid;
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
         public ActionResult Login(User user)
         {
             SqlHelper sqlhelper = new SqlHelper();
-            string sql = "select * from Userr where userid="+user.userid+" and pwd="+user.pwd;
+            string sql = "select count(*) from Userr where userid="+user.userid+" and pwd='"+user.pwd+"'";
 
             //int i = sqlhelper.ExecuteSql(sql);
-            Session["Name"] = user.uname;
-            Session["Uid"] = user.userid;
+            object i = sqlhelper.GetSingle(sql);
+
+            if (Convert.ToInt32(i) > 0)
+            {
+                Session["Name"] = user.uname;
+                Session["Uid"] = user.userid;
+                return RedirectToAction("Index", "Home");
+            }
+
+            return Content("密码错误");
+            
+        }
+
+        public ActionResult AddWeibo()
+        {
             return View();
         }
+        [HttpPost]
+        public ActionResult AddWeibo(Weibo weibo,string uid)
+        {
+            weibo.userid = Convert.ToInt32(uid);
+            weibo.creattime = DateTime.Now;
+
+            string sql = " insert into weib values(" + weibo.userid + ",'" + weibo.cont + "','" + weibo.creattime + "')";
+            SqlHelper sqlhelper = new SqlHelper();
+            int i = sqlhelper.ExecuteSql(sql);
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 
 }

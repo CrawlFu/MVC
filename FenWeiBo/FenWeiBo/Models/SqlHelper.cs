@@ -10,7 +10,7 @@ namespace FenWeiBo.Models
 {
     public class SqlHelper
     {
-        public  string connectionString = ConfigurationSettings.AppSettings["ConnectionString"];
+        public string connectionString = "Server=localhost;DataBase=weibo;Uid=sa;Pwd=123456";
 
         public  DataSet Query(string SQLString)
         {

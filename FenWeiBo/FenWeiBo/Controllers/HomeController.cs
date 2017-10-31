@@ -15,19 +15,21 @@ namespace FenWeiBo.Controllers
             ViewBag.Message = "每天发现新世界";
 
             WeiboList weibo = null;
-            //if (Session["UID"].ToString() == null || Session["UID"].ToString() == "")
+            //if (Session["UID"]== null || Session["UID"] == "")
             //{
             //    return View();
             //}
             //int uid =Convert.ToInt32(Session["UID"].ToString());
             //string sql = "select * from weib where userid=" + uid;
 
-            //SqlHelper sqlhelper = new SqlHelper();
+            SqlHelper sqlhelper = new SqlHelper();
             ////DataSet ds = sqlhelper.Query(sql);
-
+            
+            
             List<WeiboList> weibolist = new List<WeiboList>();
             weibo = new WeiboList();
             weibo.uid= 1;
+            weibo.wid = 1;
             weibo.content = "今天天气好";
             weibo.isconcern = false;
             List<WeiComment> commentlist = new List<WeiComment>();
@@ -41,6 +43,32 @@ namespace FenWeiBo.Controllers
             weibolist.Add(weibo); 
             weibolist.Add(weibo);
 
+            //List<Weibo> tempWeibo = null;
+            //foreach (Weibo item in tempWeibo)
+            //{
+            //    weibo = new WeiboList();
+            //    weibo.uid = item.userid;
+            //    weibo.content = item.cont;
+            //    string sql = "select count(*) from Userelation where userid= "+ uid + " and fid = " + item.userid;
+            //    object tem = sqlhelper.GetSingle(sql);
+            //    if (Convert.ToInt32(tem) == 1)
+            //    {
+            //        weibo.isconcern = true;
+            //    } else
+            //    {
+            //        weibo.isconcern = false;
+            //    }
+
+            //    string sql1 = "select * from weicomment where weid=" + item.weid;
+            //    DataSet dt = sqlhelper.Query(sql1);
+
+            //    List<WeiComment> com1 = new List<WeiComment>();
+            //    WeiComment comment = new WeiComment();
+
+
+            //    weibo.commentList = com1;
+            //    weibolist.Add(weibo);
+            //}
             ViewBag.WeiboList = weibolist;
 
             return View();
@@ -78,12 +106,15 @@ namespace FenWeiBo.Controllers
             //int i = sqlhelper.ExecuteSql(sql);
             return RedirectToAction("Index", "Home");
         }
-        public ActionResult Comment(string id,string uid)
+        public ActionResult Comment(string id,string uid,string wid)
         {
             //int userid = Convert.ToInt32(Session["UID"]);
             //string sql = "insert into Userelation values('" + userid + "','" + fid + "')";
             //SqlHelper sqlhelper = new SqlHelper();
             //int i = sqlhelper.ExecuteSql(sql);
+
+            ViewBag.Uid = uid;
+            ViewBag.Wid = wid;
             if (Request.IsAjaxRequest())
             {
                 return PartialView(id);
@@ -92,6 +123,18 @@ namespace FenWeiBo.Controllers
             {
                 return View(id);
             }
+        }
+        public ActionResult AddComment()
+        {
+            return View();
+        }
+       [HttpPost]
+        public ActionResult AddComment(WeiComment comment)
+        {
+            //string sql = "insert into weicomment values('" + comment.weid + "','" + comment.userid + "','" + comment.comment + "')";
+            //SqlHelper sqlhelper = new SqlHelper();
+            //int i = sqlhelper.ExecuteSql(sql);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

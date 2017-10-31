@@ -20,65 +20,61 @@
 
 <ol class="round">
     <li>
-       @foreach (FenWeiBo.Models.WeiboList item in ViewBag.WeiboList)
-       {
-           <div style="border:groove">
-               <div style="height:30px;">
-                   <div style="float:left;font-size:20px;height:30px;">@item.uid</div>
-                   <div style="float: right; font-size: 20px;height:auto">
-                       @if (item.isconcern)
-                       { 
-                           @Ajax.ActionLink("已关注", "Love", "Home", new{ fid = item.uid} ,
+        @foreach (FenWeiBo.Models.WeiboList item in ViewBag.WeiboList)
+        {
+            <div style="border:groove">
+                <div style="height:30px;">
+                    <div style="float:left;font-size:20px;height:30px;">@item.uid</div>
+                    <div style="float: right; font-size: 20px;height:auto">
+                        @if (item.isconcern)
+                        {
+                            @Ajax.ActionLink("已关注", "Love", "Home", new { fid = item.uid },
                  new AjaxOptions
                  {
                      UpdateTargetId = "myDiv2",
                      HttpMethod = "Post",
                      InsertionMode = InsertionMode.Replace,
                  })
-                       }
-                       else
-                       { 
-                       @Ajax.ActionLink("+关注", "Love", "Home", new{ fid = item.uid} ,
+                        }
+                        else
+                        {
+                            @Ajax.ActionLink("+关注", "Love", "Home", new { fid = item.uid },
                  new AjaxOptions
                  {
                      UpdateTargetId = "myDiv2",
                      HttpMethod = "Post",
                      InsertionMode = InsertionMode.Replace,
                  })
-                       }
-                   </div>
-               </div>
-               <div style="font-size:15px;">
-                   &nbsp;&nbsp;&nbsp;&nbsp;@item.content
-               </div>
-               <div class="myDiv2" style="margin-top:10px;">
-                   @foreach (FenWeiBo.Models.WeiComment item1 in item.commentList)
-                   {
-                       <div style="font-family:'Trebuchet MS'"> &nbsp;&nbsp;&nbsp;&nbsp;@item1.userid : @item1.comment</div>
-                       <div>@Ajax.ActionLink("+", "Comment", "Home", new { fid = item.uid },
-                 new AjaxOptions
-                 {
-                     UpdateTargetId = "myDiv2",
-                     HttpMethod = "Post",
-                     InsertionMode = InsertionMode.Replace,
-                 })</div>
-                   }
-                  
-                   <div id="div2"></div>
-           </div>
-               </div>
-       }
-    </li>
-    
-    <li class="three">
-       
-    </li>
-</ol>
-@{
-    AjaxOptions opts1 = new AjaxOptions
-    {
-        UpdateTargetId = "div2",
-        OnFailure = "ShowError('更新div2出错了')"
-    };
-}
-@Ajax.ActionLink("+评论", "Comment", "Home", new { id = "AddComment"}, opts1, new { })
+                        }
+                    </div>
+                </div>
+                <div style="font-size:15px;">
+                    &nbsp;&nbsp;&nbsp;&nbsp;@item.content
+                </div>
+                <div class="myDiv2" style="margin-top:10px;">
+                    @foreach (FenWeiBo.Models.WeiComment item1 in item.commentList)
+                    {
+                        <div style="font-family:'Trebuchet MS'"> &nbsp;&nbsp;&nbsp;&nbsp;@item1.userid : @item1.comment</div>
+                        <div>
+                            @Ajax.ActionLink("+评论", "Comment", "Home", new { id = "AddComment", wid = item.wid, uid = Session["UID"] }, new AjaxOptions
+                       {
+                           UpdateTargetId = "div2",
+                           OnFailure = "ShowError('更新div2出错了')",
+
+                       }, new { })
+                         </div>
+                    }
+
+                    <div id="div2"></div>
+                    </div>
+                    </div>
+        }
+        </li>
+
+        <li class="three">
+
+        </li>
+    </ol>
+
+
+

@@ -1,0 +1,32 @@
+﻿
+@model FenWeiBo.Models.Weibo
+@{
+    ViewBag.Title = "微博";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>新增微博</h2>
+</hgroup>
+
+@using (Html.BeginForm("AddWeibo", "User", new { uid =Session["UID"]}, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <legend>注册表单</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.cont)
+                @Html.TextBoxFor(m => m.cont)
+            </li>
+           
+        </ol>
+        <input type="submit" value="发布" />
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
