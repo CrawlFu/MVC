@@ -197,6 +197,8 @@
     <Compile Include="Models\SqlHelper.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Weibo.cs" />
+    <Compile Include="Models\WeiboList.cs" />
+    <Compile Include="Models\WeiComment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -312,6 +314,8 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\Home\Love.cshtml" />
+    <Content Include="Views\Home\AddComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

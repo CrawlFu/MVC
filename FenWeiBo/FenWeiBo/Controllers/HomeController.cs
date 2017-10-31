@@ -14,22 +14,31 @@ namespace FenWeiBo.Controllers
         {
             ViewBag.Message = "每天发现新世界";
 
-            Weibo weibo = null;
-            if (Session["UID"].ToString() == null || Session["UID"].ToString() == "")
-            {
-                return View();
-            }
-            int uid =Convert.ToInt32(Session["UID"].ToString());
-            string sql = "select * from weib where userid=" + uid;
+            WeiboList weibo = null;
+            //if (Session["UID"].ToString() == null || Session["UID"].ToString() == "")
+            //{
+            //    return View();
+            //}
+            //int uid =Convert.ToInt32(Session["UID"].ToString());
+            //string sql = "select * from weib where userid=" + uid;
 
-            SqlHelper sqlhelper = new SqlHelper();
-            //DataSet ds = sqlhelper.Query(sql);
+            //SqlHelper sqlhelper = new SqlHelper();
+            ////DataSet ds = sqlhelper.Query(sql);
 
-            List<Weibo> weibolist = new List<Weibo>();
-            weibo = new Weibo();
-            weibo.userid = 1;
-            weibo.userid = 1;
-            weibo.cont = "sssfasdfasdfasdfasdfad";
+            List<WeiboList> weibolist = new List<WeiboList>();
+            weibo = new WeiboList();
+            weibo.uid= 1;
+            weibo.content = "今天天气好";
+            weibo.isconcern = false;
+            List<WeiComment> commentlist = new List<WeiComment>();
+            WeiComment com = new WeiComment();
+            com.comid = 1;
+            com.comment = "hahah";
+            com.userid = 1;
+            com.weid = 1;
+            commentlist.Add(com);
+            weibo.commentList = commentlist;
+            weibolist.Add(weibo); 
             weibolist.Add(weibo);
 
             ViewBag.WeiboList = weibolist;
@@ -53,6 +62,36 @@ namespace FenWeiBo.Controllers
             asa.Add("sdfa");
             ViewBag.List = asa;
             return View();
+        }
+       
+        [HttpPost]
+        public ActionResult Index(string uid)
+        {
+            return View();
+        }
+
+        public ActionResult Love(string fid)
+        {
+            //int userid = Convert.ToInt32(Session["UID"]);
+            //string sql = "insert into Userelation values('" + userid + "','" + fid + "')";
+            //SqlHelper sqlhelper = new SqlHelper();
+            //int i = sqlhelper.ExecuteSql(sql);
+            return RedirectToAction("Index", "Home");
+        }
+        public ActionResult Comment(string id,string uid)
+        {
+            //int userid = Convert.ToInt32(Session["UID"]);
+            //string sql = "insert into Userelation values('" + userid + "','" + fid + "')";
+            //SqlHelper sqlhelper = new SqlHelper();
+            //int i = sqlhelper.ExecuteSql(sql);
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView(id);
+            }
+            else
+            {
+                return View(id);
+            }
         }
     }
 }
