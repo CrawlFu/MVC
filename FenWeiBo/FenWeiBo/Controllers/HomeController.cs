@@ -31,7 +31,7 @@ namespace FenWeiBo.Controllers
             weibo.uid= 1;
             weibo.wid = 1;
             weibo.content = "今天天气好";
-            weibo.isconcern = false;
+            weibo.isconcern = true;
             List<WeiComment> commentlist = new List<WeiComment>();
             WeiComment com = new WeiComment();
             com.comid = 1;
@@ -124,9 +124,13 @@ namespace FenWeiBo.Controllers
                 return View(id);
             }
         }
-        public ActionResult AddComment()
+        public ActionResult AddComment(string val1,string comment)
         {
-            return View();
+            int userid = Convert.ToInt32(Session["UID"]);
+            string sql = "insert into weicomment values('" + val1 + "','" + userid + "','" + comment + "')";
+            SqlHelper sqlhelper = new SqlHelper();
+            int i = sqlhelper.ExecuteSql(sql);
+            return RedirectToAction("Index", "Home");
         }
        [HttpPost]
         public ActionResult AddComment(WeiComment comment)

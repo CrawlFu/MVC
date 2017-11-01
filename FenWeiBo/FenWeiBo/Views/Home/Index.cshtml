@@ -56,25 +56,57 @@
                     {
                         <div style="font-family:'Trebuchet MS'"> &nbsp;&nbsp;&nbsp;&nbsp;@item1.userid : @item1.comment</div>
                         <div>
-                            @Ajax.ActionLink("+评论", "Comment", "Home", new { id = "AddComment", wid = item.wid, uid = Session["UID"] }, new AjaxOptions
+                            
+                            @*@Ajax.ActionLink("+评论", "Comment", "Home", new { id = "AddComment", wid = item.wid, uid = Session["UID"] }, new AjaxOptions
                        {
                            UpdateTargetId = "div2",
                            OnFailure = "ShowError('更新div2出错了')",
 
-                       }, new { })
-                         </div>
-                    }
+                       }, new { })*@
 
-                    <div id="div2"></div>
+                            <div id="click" style="height:30px;">
+                                <button id="asv" onclick="submit()" value="@item.wid" style="float:right; height:30px;">+</button>
+                            </div>
+                         </div>
+                        <div id="com"></div>
+                       
+                    }
                     </div>
                     </div>
         }
         </li>
-
-        <li class="three">
-
-        </li>
+     <li>
+         <div id="show"></div>
+     </li>       
     </ol>
+<script>
 
+
+    function submit() {
+        
+        //var wid = $("div#asv").index(this);
+        
+        var wid = document.getElementById("asv").getAttributeNode("value").nodeValue;
+        //alert(wid);
+        $("#show").append("<div style='display:none' id='wid'>"+wid+"</div><input  type='text' id='addcom' /> <input type='button' onclick='submit1()' value='发表'/>")
+       
+    }
+    function submit1() {
+        var wid=$('#wid').html();
+        var addcom = $('#addcom').val();
+
+        $.ajax({
+            url: '@Url.Action("AddComment", "Home")',
+            data: { val1: wid, comment: addcom },
+            success: function (result) { $("#div1").html(result); },
+            error: function () { alert("更新div1出错了"); }
+        });
+    }
+
+    //$('#div9').on('click', function (e) {
+    //    alert($(this).index());
+    //    $(this).append("<input  type='text' id='addcom' /> <input type='button' value='发表'/>");
+    //});
+</script>
 
 

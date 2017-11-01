@@ -15,13 +15,22 @@
         <legend></legend>
         <ol>
             <li>
-                @Html.LabelFor(m => m.comment)
-                @Html.TextBoxFor(m => m.comment)
+               <input type="text" value="@ViewBag.weid"/>
             </li>
+            <li>@ViewBag.weid</li>
         </ol>
-        <input type="submit" value="发表" />
+        <input type="submit" value="发表"  onclick="submit()"/>
     </fieldset>
 }
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script>
+    function submit() {
+        $.ajax({
+            url: '@Url.Action("AddComment", "Home")',
+            success: function (result) { $("#div1").html(result); },
+            error: function () { alert("更新div1出错了");}
+        });
+    }
+</script>
